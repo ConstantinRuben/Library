@@ -37,7 +37,7 @@ namespace LibraryAplication.Containers
 
         public IList<IBook> get()
         {
-         //   updateSerialize();
+            updateSerialize();
             return booksList;
         }
 
@@ -79,5 +79,6 @@ namespace LibraryAplication.Containers
               // System.Windows.Forms.MessageBox.Show("Mising booksData");
             }
         }
+        
     }
 }

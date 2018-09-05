@@ -47,11 +47,15 @@
             this.btnDisplay = new System.Windows.Forms.Button();
             this.btnCategoryLoad = new System.Windows.Forms.Button();
             this.textBoxAddCategories = new System.Windows.Forms.TextBox();
-            this.categoriesList1 = new LibraryAplication.User_Controls.CategoriesList();
-            this.authorsList1 = new LibraryAplication.User_Controls.AuthorsList();
             this.label_cagegories = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.openFileDialogBookCover = new System.Windows.Forms.OpenFileDialog();
+            this.btnAddCover = new System.Windows.Forms.Button();
+            this.categoriesList1 = new LibraryAplication.User_Controls.CategoriesList();
             this.panelTopSideAddBook.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panelTopSideAddBook
@@ -77,7 +81,7 @@
             // 
             // btn_AddBook
             // 
-            this.btn_AddBook.Location = new System.Drawing.Point(74, 379);
+            this.btn_AddBook.Location = new System.Drawing.Point(91, 328);
             this.btn_AddBook.Name = "btn_AddBook";
             this.btn_AddBook.Size = new System.Drawing.Size(75, 23);
             this.btn_AddBook.TabIndex = 11;
@@ -190,15 +194,17 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 408);
+            this.dataGridView1.Location = new System.Drawing.Point(108, 408);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(234, 242);
+            this.dataGridView1.Size = new System.Drawing.Size(726, 242);
             this.dataGridView1.TabIndex = 15;
             // 
             // btnDisplay
             // 
-            this.btnDisplay.Location = new System.Drawing.Point(252, 567);
+            this.btnDisplay.Location = new System.Drawing.Point(22, 519);
             this.btnDisplay.Name = "btnDisplay";
             this.btnDisplay.Size = new System.Drawing.Size(75, 23);
             this.btnDisplay.TabIndex = 16;
@@ -208,7 +214,7 @@
             // 
             // btnCategoryLoad
             // 
-            this.btnCategoryLoad.Location = new System.Drawing.Point(443, 418);
+            this.btnCategoryLoad.Location = new System.Drawing.Point(634, 408);
             this.btnCategoryLoad.Name = "btnCategoryLoad";
             this.btnCategoryLoad.Size = new System.Drawing.Size(75, 23);
             this.btnCategoryLoad.TabIndex = 20;
@@ -224,24 +230,6 @@
             this.textBoxAddCategories.Size = new System.Drawing.Size(100, 20);
             this.textBoxAddCategories.TabIndex = 21;
             // 
-            // categoriesList1
-            // 
-            this.categoriesList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(178)))), ((int)(((byte)(180)))));
-            this.categoriesList1.Location = new System.Drawing.Point(361, 62);
-            this.categoriesList1.Name = "categoriesList1";
-            this.categoriesList1.Size = new System.Drawing.Size(243, 388);
-            this.categoriesList1.TabIndex = 18;
-            this.categoriesList1.Visible = false;
-            // 
-            // authorsList1
-            // 
-            this.authorsList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(178)))), ((int)(((byte)(180)))));
-            this.authorsList1.Location = new System.Drawing.Point(645, 62);
-            this.authorsList1.Name = "authorsList1";
-            this.authorsList1.Size = new System.Drawing.Size(227, 399);
-            this.authorsList1.TabIndex = 17;
-            this.authorsList1.Visible = false;
-            // 
             // label_cagegories
             // 
             this.label_cagegories.AutoSize = true;
@@ -251,16 +239,70 @@
             this.label_cagegories.TabIndex = 12;
             this.label_cagegories.Text = "Cagegory";
             // 
+            // comboBox1
+            // 
+            this.comboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "test1",
+            "dsadsa",
+            "ana",
+            "are ",
+            "mere"});
+            this.comboBox1.Location = new System.Drawing.Point(796, 295);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 22;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::LibraryAplication.Properties.Resources.LibraryNoImage;
+            this.pictureBox1.Location = new System.Drawing.Point(358, 84);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(100, 108);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 24;
+            this.pictureBox1.TabStop = false;
+            // 
+            // openFileDialogBookCover
+            // 
+            this.openFileDialogBookCover.FileName = "openFileDialog1";
+            // 
+            // btnAddCover
+            // 
+            this.btnAddCover.Location = new System.Drawing.Point(368, 198);
+            this.btnAddCover.Name = "btnAddCover";
+            this.btnAddCover.Size = new System.Drawing.Size(75, 23);
+            this.btnAddCover.TabIndex = 25;
+            this.btnAddCover.Text = "Add Cover";
+            this.btnAddCover.UseVisualStyleBackColor = true;
+            this.btnAddCover.Click += new System.EventHandler(this.btnAddCover_Click);
+            // 
+            // categoriesList1
+            // 
+            this.categoriesList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(178)))), ((int)(((byte)(180)))));
+            this.categoriesList1.Location = new System.Drawing.Point(547, 53);
+            this.categoriesList1.Name = "categoriesList1";
+            this.categoriesList1.Size = new System.Drawing.Size(243, 388);
+            this.categoriesList1.TabIndex = 18;
+            this.categoriesList1.Visible = false;
+            // 
             // AddBookForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(188)))), ((int)(((byte)(187)))));
             this.ClientSize = new System.Drawing.Size(919, 662);
+            this.Controls.Add(this.btnAddCover);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.textBoxAddCategories);
             this.Controls.Add(this.btnCategoryLoad);
             this.Controls.Add(this.categoriesList1);
-            this.Controls.Add(this.authorsList1);
             this.Controls.Add(this.btnDisplay);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnAddAuthors);
@@ -284,6 +326,7 @@
             this.panelTopSideAddBook.ResumeLayout(false);
             this.panelTopSideAddBook.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -308,10 +351,13 @@
         private System.Windows.Forms.Label label_date;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btnDisplay;
-        private User_Controls.AuthorsList authorsList1;
         private User_Controls.CategoriesList categoriesList1;
         private System.Windows.Forms.Button btnCategoryLoad;
         private System.Windows.Forms.TextBox textBoxAddCategories;
         private System.Windows.Forms.Label label_cagegories;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.OpenFileDialog openFileDialogBookCover;
+        private System.Windows.Forms.Button btnAddCover;
     }
 }

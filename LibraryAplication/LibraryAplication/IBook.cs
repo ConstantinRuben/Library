@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,9 @@ namespace LibraryAplication
         string Publisher { get; set; }
         DateTime RelaseDate { get; set; }
         IList<string> Category { get; set; }
-       
+        void addCover(BookCover cover);
+        Image DisplayCover();
+
+
     }
 }

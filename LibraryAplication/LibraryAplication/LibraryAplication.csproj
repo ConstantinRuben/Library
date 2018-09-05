@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="Author.cs" />
     <Compile Include="Book.cs" />
+    <Compile Include="BookCover.cs" />
     <Compile Include="Containers\AuthorContainer.cs" />
     <Compile Include="Containers\BookContainer.cs" />
     <Compile Include="Containers\CategoryContainer.cs" />
@@ -86,6 +87,18 @@
     <Compile Include="User Controls\AuthorsList.Designer.cs">
       <DependentUpon>AuthorsList.cs</DependentUpon>
     </Compile>
+    <Compile Include="User Controls\BookListUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User Controls\BookListUserControl.Designer.cs">
+      <DependentUpon>BookListUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="User Controls\BookUserControler.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User Controls\BookUserControler.Designer.cs">
+      <DependentUpon>BookUserControler.cs</DependentUpon>
+    </Compile>
     <Compile Include="User Controls\CategoriesList.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -106,9 +119,16 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="User Controls\AuthorsList.resx">
       <DependentUpon>AuthorsList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User Controls\BookListUserControl.resx">
+      <DependentUpon>BookListUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User Controls\BookUserControler.resx">
+      <DependentUpon>BookUserControler.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User Controls\CategoriesList.resx">
       <DependentUpon>CategoriesList.cs</DependentUpon>
@@ -126,6 +146,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\LibraryNoImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\CoverImages\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

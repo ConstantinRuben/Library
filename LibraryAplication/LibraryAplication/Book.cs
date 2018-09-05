@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,11 +18,13 @@ namespace LibraryAplication
         string bookTitle;
 
         int numberOfCopies;
-
+       
         string publisher;
         DateTime relaseDate;
-        IList<string> category;
         IList<IAuthor> authors = new List<IAuthor>();
+
+
+        BookCover cover = new BookCover();
 
         public string ISBN1
         {
@@ -88,18 +91,8 @@ namespace LibraryAplication
             }
         }
 
-        public IList<string> Category
-        {
-            get
-            {
-                return category;
-            }
-
-            set
-            {
-                category = value;
-            }
-        }
+        public IList<string> Category { get; set; }
+        
 
         public Book(string iSBN, string bookTitle, int numberOfCopies, string publisher, IList<string> category)
         {
@@ -109,8 +102,8 @@ namespace LibraryAplication
             this.Publisher = publisher;
            // this.relaseDate = relaseDate;
             Category = category;
-            
-        }
+
+    }
 
         void AddAuthor(IAuthor author)
         {
@@ -127,6 +120,16 @@ namespace LibraryAplication
         {
             authors.Add(author);
             author.AddBook(this);
+        }
+
+        public void addCover(BookCover cover)
+        {
+            this.cover = cover;
+        }
+
+        public Image DisplayCover()
+        {
+            return cover.get();
         }
     }
 }

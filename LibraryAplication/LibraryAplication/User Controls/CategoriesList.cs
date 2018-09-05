@@ -36,17 +36,18 @@ namespace LibraryAplication.User_Controls
         {
             if (textBoxNewCategory.Text == "")
                 MessageBox.Show("Can't add an empty field");
-
-            library.initialize();
-            library.categories.add(textBoxNewCategory.Text);
-            foreach (CheckBox checkbox in checkBoxes)
+            else
             {
-                panelCategories.Controls.Remove(checkbox);
-            }
-            LoadCategoriesList();
+                library.initialize();
+                library.categories.add(textBoxNewCategory.Text);
+                foreach (CheckBox checkbox in checkBoxes)
+                {
+                    panelCategories.Controls.Remove(checkbox);
+                }
+                LoadCategoriesList();
 
-            textBoxNewCategory.Text = "";
-
+                textBoxNewCategory.Text = "";
+             }
         }
         private void LoadCategoriesList()
         {
