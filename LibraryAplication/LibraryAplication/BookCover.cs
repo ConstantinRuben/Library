@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace LibraryAplication
 {
     [Serializable]
-    class BookCover
+    public class BookCover
     {
         Image cover;
         string photoId;

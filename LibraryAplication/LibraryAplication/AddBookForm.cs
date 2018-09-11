@@ -1,6 +1,7 @@
 ﻿using LibraryAplication.Containers;
 using LibraryAplication.Factories;
-using LibraryAplication.Prezenters;
+using LibraryAplication.Presenters;
+using LibraryAplication.User_Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,7 +21,7 @@ namespace LibraryAplication
         IAuthorFactory authorfactory = new AuthorFactory();
         LibraryContainer library = new LibraryContainer();
 
-        AddBookPrezenter addBookPrezenter = new AddBookPrezenter();
+        AddBookPresenter addBookPresenter = new AddBookPresenter();
 
         public AddBookForm()
         {
@@ -34,44 +35,64 @@ namespace LibraryAplication
         {
             library.initialize();
             comboBox1.AutoCompleteMode.ToString();
+            CompleteAuthorList();
+            
         }
 
         private void btn_AddBook_Click(object sender, EventArgs e)
         {
 
             Author a = new Author("Author Test1");
+            
             IList<IAuthor> authors = new List<IAuthor>();
             authors.Add(a);
 
             IList<string> categories = new List<string>();
             categories = categoriesList1.GetSelectedCategory();
 
-            IBook book = bookfactory.create(textBox_ISBN.Text, textBox_BookTitle.Text, Convert.ToInt32(textBox_Copies.Text), textBox_Publisher.Text, authors, categories);
-            library.books.add(book);
-            Image image = pictureBox1.Image;
+            IBook book = bookfactory.create(textBox_ISBN.Text, textBox_BookTitle.Text, Convert.ToInt32(textBox_Copies.Text), textBox_Publisher.Text,dateTimePicker1.Value, authors, categories);
+           
+            Image image = pictureBoxCover.Image;
             BookCover cover = new BookCover(image, textBox_ISBN.Text);
             book.addCover(cover);
-            try
-            {
-               string picturePath = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
-                File.Copy(openFileDialogBookCover.FileName, picturePath + "\\Resources\\CoverImages\\" + textBox_ISBN.Text + ".jpg",true);
-                //BookCover cover = new BookCover(new Bitmap(Image.FromFile(openFileDialogBookCover.FileName)), textBox_ISBN.Text);
-            }
-            catch
-            {
+            library.books.add(book);
+
+            //Add image to resources
+
+            //try
+            //{
+            //   string picturePath = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
+            //    File.Copy(openFileDialogBookCover.FileName, picturePath + "\\Resources\\CoverImages\\" + textBox_ISBN.Text + ".jpg",true);
+            //    //BookCover cover = new BookCover(new Bitmap(Image.FromFile(openFileDialogBookCover.FileName)), textBox_ISBN.Text);
+            //}
+            //catch
+            //{
           
-            }
+            //}
 
 
 
 
             MessageBox.Show("Done");
 
+            
 
 
 
 
+        }
+        private void CompleteAuthorList()
+        {
+            List<string>list=new List<string>();
+            foreach (var item in library.authors.get())
+            {
+                list.Add(item.authorName());
+            }
 
+            comboBoxAuthors.DataSource = list;
+            
+            comboBoxAuthors.AutoCompleteMode.ToString();
+           
         }
 
         private void btnDisplay_Click(object sender, EventArgs e)
@@ -84,6 +105,7 @@ namespace LibraryAplication
             dt.Columns.Add("BookTitle");
             dt.Columns.Add("NumberOFCopies");
             dt.Columns.Add("Image", typeof(Image));
+            dt.Columns.Add("Author");
             //dt.Columns.Add("Publisher");
             //dt.Columns.Add("RelaseDate");
             foreach (var item in bookslist)
@@ -94,6 +116,7 @@ namespace LibraryAplication
                 row["BookTitle"] = Convert.ToString(item.BookTitle);
                 row["NumberOFCopies"] = item.NumberOfCopies.ToString();
                 row["Image"] = item.DisplayCover();
+                row["Author"] = item.Authors.First<IAuthor>().authorName();
 
                 dt.Rows.Add(row);
             }
@@ -104,14 +127,14 @@ namespace LibraryAplication
         private void btnAddAuthors_Click(object sender, EventArgs e)
         {
 
-            //if (authorsList1.Visible)
-            //{
-            //    authorsList1.Visible = false;
-            //}
-            //else
-            //{
-            //    authorsList1.Visible = true;
-            //}
+            if (authorsList1.Visible)
+            {
+                authorsList1.Visible = false;
+            }
+            else
+            {
+                authorsList1.Visible = true;
+            }
         }
 
         private void btnAddCategories_Click(object sender, EventArgs e)
@@ -152,10 +175,12 @@ namespace LibraryAplication
         {
             if (openFileDialogBookCover.ShowDialog() == DialogResult.OK)
             {
-                pictureBox1.Image = Image.FromFile(openFileDialogBookCover.FileName);
+                pictureBoxCover.Image = Image.FromFile(openFileDialogBookCover.FileName);
 
             }
            
         }
+
+       
     }
 }

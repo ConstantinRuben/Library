@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace LibraryAplication
 {
-    interface IAuthor
+   public interface IAuthor
     {
        void  AddBook(IBook book);
-        string authorName();
+       string authorName();
 
     }
 }

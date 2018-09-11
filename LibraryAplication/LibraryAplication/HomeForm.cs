@@ -7,23 +7,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LibraryAplication.Containers;
+using LibraryAplication.Presenters;
+using LibraryAplication.User_Controls;
 
 namespace LibraryAplication
 {
     public partial class HomeForm : Form
     {
+        ILibraryPresenter presenter;
+
+
         public HomeForm()
         {
             InitializeComponent();
+            presenter = new LibraryPresenter(this);
+            presenter.displayAllBooks(flowLayoutPanelAllBooks);
+
         }
+
+       
+
 
         private void labelAboutUs_Click(object sender, EventArgs e)
         {
             AddBookForm ob1 = new AddBookForm();
             ob1.TopLevel = false;
-            tabPage4.Controls.Add(ob1);
+
+            //  tabPage4.Controls.Add(ob1);
             ob1.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             ob1.Dock = DockStyle.Fill;
+            paneltab4.Controls.Add(ob1);
             tabControl1.SelectedTab = tabPage4;
             ob1.Show();
 
@@ -52,7 +66,7 @@ namespace LibraryAplication
         private void labelAddBooks_Click(object sender, EventArgs e)
         {
             AddBookForm ob = new AddBookForm();
-             ob.Show();
+            ob.Show();
 
         }
 
@@ -66,12 +80,14 @@ namespace LibraryAplication
 
         }
 
-        private void label_MouseLeaveChangeCollor(object sender , EventArgs e)
+        private void label_MouseLeaveChangeCollor(object sender, EventArgs e)
         {
 
             Label labeltemp = sender as Label;
             labeltemp.ForeColor = Color.White;
 
         }
+
+      
     }
 }

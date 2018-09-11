@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 using LibraryAplication.Containers;
 using LibraryAplication.Factories;
 
-namespace LibraryAplication.Prezenters
+namespace LibraryAplication.Presenters
 {
-    class AddBookPrezenter
+    class AddBookPresenter
     {
 
         IBookFactory bookfactory = new BookFactory();
         LibraryContainer libraryContainer = new LibraryContainer();
-        public AddBookPrezenter()
+        public AddBookPresenter()
         {
 
         }

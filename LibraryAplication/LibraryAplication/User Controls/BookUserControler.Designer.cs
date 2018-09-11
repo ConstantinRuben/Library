@@ -29,22 +29,11 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BookUserControler));
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelBookTitle = new System.Windows.Forms.Label();
             this.labelAuthorName = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(20, 23);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(117, 114);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // labelBookTitle
             // 
@@ -55,6 +44,9 @@
             this.labelBookTitle.Size = new System.Drawing.Size(100, 26);
             this.labelBookTitle.TabIndex = 1;
             this.labelBookTitle.Text = "BookTitle";
+            this.labelBookTitle.Click += new System.EventHandler(this.labelBookTitle_Click);
+            this.labelBookTitle.MouseLeave += new System.EventHandler(this.labelBookTitle_MouseLeave);
+            this.labelBookTitle.MouseHover += new System.EventHandler(this.labelBookTitle_MouseHover);
             // 
             // labelAuthorName
             // 
@@ -65,16 +57,34 @@
             this.labelAuthorName.Size = new System.Drawing.Size(130, 26);
             this.labelAuthorName.TabIndex = 1;
             this.labelAuthorName.Text = "AuthorName";
+            this.labelAuthorName.Click += new System.EventHandler(this.labelBookTitle_Click);
+            this.labelAuthorName.MouseLeave += new System.EventHandler(this.labelBookTitle_MouseLeave);
+            this.labelAuthorName.MouseHover += new System.EventHandler(this.labelBookTitle_MouseHover);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
+            this.pictureBox1.Location = new System.Drawing.Point(20, 23);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(99, 114);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.labelBookTitle_Click);
+            this.pictureBox1.MouseLeave += new System.EventHandler(this.pictureBox1_MouseLeave);
+            this.pictureBox1.MouseHover += new System.EventHandler(this.pictureBox1_MouseHover);
             // 
             // BookUserControler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.Controls.Add(this.labelAuthorName);
             this.Controls.Add(this.labelBookTitle);
             this.Controls.Add(this.pictureBox1);
             this.Name = "BookUserControler";
-            this.Size = new System.Drawing.Size(151, 203);
+            this.Size = new System.Drawing.Size(142, 203);
             this.Load += new System.EventHandler(this.BookUserControler_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

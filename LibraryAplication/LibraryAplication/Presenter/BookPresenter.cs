@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryAplication.Controlers
+namespace LibraryAplication.Presenter
 {
-    class LibraryControler
+    class BookPresenter
     {
     }
 }

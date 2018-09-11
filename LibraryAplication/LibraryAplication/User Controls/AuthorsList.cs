@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using LibraryAplication.Containers;
 using LibraryAplication.Factories;
+using LibraryAplication.Presenters;
 
 namespace LibraryAplication.User_Controls
 {
@@ -16,55 +17,74 @@ namespace LibraryAplication.User_Controls
     {
         LibraryContainer library = new LibraryContainer();
         IAuthorFactory factory = new AuthorFactory();
+        IAuthor author;
+        AuthorListPresenter presenter;
      
         public AuthorsList()
         {
             InitializeComponent();
             library.initialize();
+            presenter = new AuthorListPresenter(this);
 
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
+        public AuthorsList(IAuthor author)
         {
-
+            this.author = author;
         }
 
         private void AuthorsList_Load(object sender, EventArgs e)
         {
             library.initialize();
-            testcomboboxdata();
+            LoadCheckboxes();
         }
 
-        private void testcomboboxdata()
-        {
-            Dictionary<string, string> test = new Dictionary<string, string>();
-
-            var authors = library.authors.get();
-            foreach (var iterator in authors)
-            {
-                test.Add(authors.IndexOf(iterator).ToString(), iterator.authorName());
-
-            }
-
-            //  comboBox1.DataSource = new BindingSource(test, null);
-            comboBox1.DisplayMember = "Value";
-            comboBox1.ValueMember = "Key";
-
-            // Get combobox selection (in handler)
-            string value = ((KeyValuePair<string, string>)comboBox1.SelectedItem).Value;
-
-        }
+    
 
         private void btnAddAuthor_Click(object sender, EventArgs e)
         {
             var author =factory.create(textBoxAuthorName.Text);
             library.authors.add(author);
+            LoadCheckboxes();
            
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void LoadCheckboxes()
         {
-            testcomboboxdata();
+          
+            IList<IAuthor> authors;
+            foreach(CheckBox item in PanelAuthors.Controls)
+            {
+                item.Visible = false;
+            }
+        
+
+            authors = library.authors.get();
+            foreach (IAuthor item in authors)
+            {
+                CheckBox box;
+                box = new CheckBox();
+                PanelAuthors.Controls.Add(box);
+                box.Tag = authors.IndexOf(item).ToString();
+                box.Text = item.authorName();
+                box.AutoSize = true;
+
+
+            }
+
+        }
+
+        private void btnNewAuthor_Click(object sender, EventArgs e)
+        {
+
+            if (textBoxAuthorName.Text == "")
+                MessageBox.Show("Can't add an empty field");
+            else
+            {
+
+                presenter.AddNewAuthor(textBoxAuthorName.Text);
+                LoadCheckboxes();
+            }
         }
     }
 }

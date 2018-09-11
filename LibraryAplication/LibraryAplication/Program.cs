@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LibraryAplication.Presenters;
 
 namespace LibraryAplication
 {
@@ -16,7 +17,10 @@ namespace LibraryAplication
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AddBookForm());
+            HomeForm home = new HomeForm();
+          //  ILibraryPresenter presenter = new LibraryPresenter(home);
+            Application.Run(home);
+            
         }
     }
 }

@@ -10,9 +10,9 @@ namespace LibraryAplication.Factories
     {
 
 
-        public IBook create(string isbn, string bookTitle, int copies, string publisher, IList<IAuthor> authors, IList<string> categories)
+        public IBook create(string isbn, string bookTitle, int copies, string publisher,DateTime dateTime, IList<IAuthor> authors, IList<string> categories)
         {
-            IBook book = new Book(isbn, bookTitle, copies, publisher,categories);
+            IBook book = new Book(isbn, bookTitle, copies, publisher,dateTime,categories);
 
             foreach (IAuthor author in authors)
             {

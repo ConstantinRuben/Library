@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace LibraryAplication
 {
     [Serializable]
-    class Book:IBook
+    class Book : IBook
     {
         public Book()
         {
@@ -18,13 +18,18 @@ namespace LibraryAplication
         string bookTitle;
 
         int numberOfCopies;
-       
+
         string publisher;
         DateTime relaseDate;
-        IList<IAuthor> authors = new List<IAuthor>();
+
 
 
         BookCover cover = new BookCover();
+        public IList<string> Category { get; set; }
+        public IList<IAuthor> Authors = new List<IAuthor>();
+
+
+
 
         public string ISBN1
         {
@@ -91,23 +96,22 @@ namespace LibraryAplication
             }
         }
 
-        public IList<string> Category { get; set; }
-        
+        IList<IAuthor> IBook.Authors { get => Authors; }
 
-        public Book(string iSBN, string bookTitle, int numberOfCopies, string publisher, IList<string> category)
+        public Book(string iSBN, string bookTitle, int numberOfCopies, string publisher, DateTime dateTime, IList<string> category)
         {
             ISBN = iSBN;
             this.BookTitle = bookTitle;
             this.NumberOfCopies = numberOfCopies;
             this.Publisher = publisher;
-           // this.relaseDate = relaseDate;
+            this.relaseDate = dateTime;
             Category = category;
 
-    }
+        }
 
         void AddAuthor(IAuthor author)
         {
-            authors.Add(author);
+            Authors.Add(author);
             author.AddBook(this);
         }
 
@@ -118,7 +122,7 @@ namespace LibraryAplication
 
         void IBook.AddAuthor(IAuthor author)
         {
-            authors.Add(author);
+            Authors.Add(author);
             author.AddBook(this);
         }
 

@@ -55,6 +55,12 @@
     <Compile Include="Author.cs" />
     <Compile Include="Book.cs" />
     <Compile Include="BookCover.cs" />
+    <Compile Include="BookData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BookData.Designer.cs">
+      <DependentUpon>BookData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Containers\AuthorContainer.cs" />
     <Compile Include="Containers\BookContainer.cs" />
     <Compile Include="Containers\CategoryContainer.cs" />
@@ -63,8 +69,6 @@
     <Compile Include="Containers\ICategoryContainer.cs" />
     <Compile Include="Containers\ILibraryContainer.cs" />
     <Compile Include="Containers\LibraryContainer.cs" />
-    <Compile Include="Controlers\BookControler.cs" />
-    <Compile Include="Controlers\LibraryControler.cs" />
     <Compile Include="Factories\AuthorFactory.cs" />
     <Compile Include="Factories\BookFactory.cs" />
     <Compile Include="Factories\IAuthorFactory.cs" />
@@ -77,8 +81,13 @@
     </Compile>
     <Compile Include="IAuthor.cs" />
     <Compile Include="IBook.cs" />
-    <Compile Include="Prezenters\AddBookPrezenter.cs" />
-    <Compile Include="Prezenters\LibraryPrezenter.cs" />
+    <Compile Include="Presenters\AddBookPresenter.cs" />
+    <Compile Include="Presenters\AuthorListPresenter.cs" />
+    <Compile Include="Presenters\BookDataPresenter.cs" />
+    <Compile Include="Presenters\BookPresenter.cs" />
+    <Compile Include="Presenters\IBookPresenter.cs" />
+    <Compile Include="Presenters\ILibraryPresenter.cs" />
+    <Compile Include="Presenters\LibraryPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User Controls\AuthorsList.cs">
@@ -107,6 +116,9 @@
     </Compile>
     <EmbeddedResource Include="AddBookForm.resx">
       <DependentUpon>AddBookForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BookData.resx">
+      <DependentUpon>BookData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HomeForm.resx">
       <DependentUpon>HomeForm.cs</DependentUpon>

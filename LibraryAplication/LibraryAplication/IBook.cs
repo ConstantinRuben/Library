@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LibraryAplication
 {
-    interface IBook
+    public interface IBook
     {
         bool IsAvalabile();
         void AddAuthor(IAuthor author);
@@ -21,6 +21,7 @@ namespace LibraryAplication
         IList<string> Category { get; set; }
         void addCover(BookCover cover);
         Image DisplayCover();
+        IList<IAuthor> Authors { get; }
 
 
     }

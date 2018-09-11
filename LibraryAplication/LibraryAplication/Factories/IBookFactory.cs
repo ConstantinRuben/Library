@@ -8,6 +8,6 @@ namespace LibraryAplication.Factories
 {
     interface IBookFactory
     {
-        IBook create(string isbn, string bookTitle, int copies, string publisher, IList<IAuthor> authors, IList<string> categories);
+        IBook create(string isbn, string bookTitle, int copies, string publisher,DateTime dateTime, IList<IAuthor> authors, IList<string> categories);
     }
 }

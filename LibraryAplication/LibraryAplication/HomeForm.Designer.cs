@@ -65,9 +65,13 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.flowLayoutPanelAllBooks = new System.Windows.Forms.FlowLayoutPanel();
+            this.splitter1 = new System.Windows.Forms.Splitter();
+            this.panelSearchResultTopBar = new System.Windows.Forms.Panel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.paneltab4 = new System.Windows.Forms.Panel();
             this.panelHomeLeftSide.SuspendLayout();
             this.panelCategories.SuspendLayout();
             this.panelHomeRightSide.SuspendLayout();
@@ -76,6 +80,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHome)).BeginInit();
             this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelHomeLeftSide
@@ -489,7 +495,10 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.tabPage1.BackColor = System.Drawing.Color.White;
+            this.tabPage1.Controls.Add(this.flowLayoutPanelAllBooks);
+            this.tabPage1.Controls.Add(this.splitter1);
+            this.tabPage1.Controls.Add(this.panelSearchResultTopBar);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage1.Name = "tabPage1";
@@ -497,9 +506,35 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             // 
+            // flowLayoutPanelAllBooks
+            // 
+            this.flowLayoutPanelAllBooks.AutoScroll = true;
+            this.flowLayoutPanelAllBooks.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanelAllBooks.Location = new System.Drawing.Point(3, 39);
+            this.flowLayoutPanelAllBooks.Name = "flowLayoutPanelAllBooks";
+            this.flowLayoutPanelAllBooks.Size = new System.Drawing.Size(653, 441);
+            this.flowLayoutPanelAllBooks.TabIndex = 2;
+            // 
+            // splitter1
+            // 
+            this.splitter1.Location = new System.Drawing.Point(0, 39);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(3, 441);
+            this.splitter1.TabIndex = 1;
+            this.splitter1.TabStop = false;
+            // 
+            // panelSearchResultTopBar
+            // 
+            this.panelSearchResultTopBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.panelSearchResultTopBar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelSearchResultTopBar.Location = new System.Drawing.Point(0, 0);
+            this.panelSearchResultTopBar.Name = "panelSearchResultTopBar";
+            this.panelSearchResultTopBar.Size = new System.Drawing.Size(656, 39);
+            this.panelSearchResultTopBar.TabIndex = 0;
+            // 
             // tabPage2
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.tabPage2.BackColor = System.Drawing.Color.Silver;
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage2.Name = "tabPage2";
@@ -519,6 +554,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.paneltab4);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
@@ -526,6 +562,16 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "tabPage4";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // paneltab4
+            // 
+            this.paneltab4.AutoScroll = true;
+            this.paneltab4.AutoSize = true;
+            this.paneltab4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.paneltab4.Location = new System.Drawing.Point(3, 3);
+            this.paneltab4.Name = "paneltab4";
+            this.paneltab4.Size = new System.Drawing.Size(650, 474);
+            this.paneltab4.TabIndex = 0;
             // 
             // HomeForm
             // 
@@ -549,6 +595,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHome)).EndInit();
             this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -593,5 +642,9 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.Panel panelSearchResultTopBar;
+        private System.Windows.Forms.Splitter splitter1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelAllBooks;
+        private System.Windows.Forms.Panel paneltab4;
     }
 }
