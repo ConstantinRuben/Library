@@ -38,6 +38,7 @@
             // labelBookTitle
             // 
             this.labelBookTitle.AutoSize = true;
+            this.labelBookTitle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.labelBookTitle.Font = new System.Drawing.Font("Constantia", 15.75F);
             this.labelBookTitle.Location = new System.Drawing.Point(19, 140);
             this.labelBookTitle.Name = "labelBookTitle";
@@ -51,6 +52,7 @@
             // labelAuthorName
             // 
             this.labelAuthorName.AutoSize = true;
+            this.labelAuthorName.Cursor = System.Windows.Forms.Cursors.Hand;
             this.labelAuthorName.Font = new System.Drawing.Font("Constantia", 15.75F);
             this.labelAuthorName.Location = new System.Drawing.Point(7, 166);
             this.labelAuthorName.Name = "labelAuthorName";
@@ -64,6 +66,7 @@
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
             this.pictureBox1.Location = new System.Drawing.Point(20, 23);
             this.pictureBox1.Name = "pictureBox1";
@@ -72,8 +75,6 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.labelBookTitle_Click);
-            this.pictureBox1.MouseLeave += new System.EventHandler(this.pictureBox1_MouseLeave);
-            this.pictureBox1.MouseHover += new System.EventHandler(this.pictureBox1_MouseHover);
             // 
             // BookUserControler
             // 

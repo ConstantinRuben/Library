@@ -10,66 +10,77 @@ using System.Windows.Forms;
 using LibraryAplication.Containers;
 using LibraryAplication.Factories;
 using LibraryAplication.Presenters;
+using LibraryAplication.Data;
 
 namespace LibraryAplication.User_Controls
 {
     public partial class AuthorsList : UserControl
     {
-        LibraryContainer library = new LibraryContainer();
-        IAuthorFactory factory = new AuthorFactory();
-        IAuthor author;
         AuthorListPresenter presenter;
-     
-        public AuthorsList()
+        List<CheckBox> checkBoxes = new List<CheckBox>();
+        ILibraryPresenter _librarypresenter;
+
+
+        public AuthorsList(ILibraryPresenter libraryPresenter)
         {
             InitializeComponent();
-            library.initialize();
-            presenter = new AuthorListPresenter(this);
+            _librarypresenter = libraryPresenter;
+            presenter = new AuthorListPresenter(libraryPresenter, this);
+
 
         }
 
-        public AuthorsList(IAuthor author)
-        {
-            this.author = author;
-        }
+
 
         private void AuthorsList_Load(object sender, EventArgs e)
         {
-            library.initialize();
+            int id = 1;
             LoadCheckboxes();
+            try
+            {
+                 id = _librarypresenter.GetAuthors().Last().Id + 1;
+            }
+            catch
+            {
+
+            }
+            textBoxAuthorId.Text = id.ToString();
         }
 
-    
 
-        private void btnAddAuthor_Click(object sender, EventArgs e)
-        {
-            var author =factory.create(textBoxAuthorName.Text);
-            library.authors.add(author);
-            LoadCheckboxes();
-           
-        }
+
 
         private void LoadCheckboxes()
         {
-          
+
             IList<IAuthor> authors;
-            foreach(CheckBox item in PanelAuthors.Controls)
+            foreach (CheckBox item in PanelAuthors.Controls)
             {
                 item.Visible = false;
+                item.Checked = false;
             }
-        
 
-            authors = library.authors.get();
+
+            authors = _librarypresenter.GetAuthors();
             foreach (IAuthor item in authors)
             {
                 CheckBox box;
                 box = new CheckBox();
                 PanelAuthors.Controls.Add(box);
-                box.Tag = authors.IndexOf(item).ToString();
+                box.Tag = item;
                 box.Text = item.authorName();
                 box.AutoSize = true;
+                checkBoxes.Add(box);
 
 
+            }
+
+        }
+        private void ClearAuthorsList()
+        {
+            for (int author = 0; author < checkBoxes.Count; author++)
+            {
+                PanelAuthors.Controls.Remove(checkBoxes[author]);
             }
 
         }
@@ -82,9 +93,107 @@ namespace LibraryAplication.User_Controls
             else
             {
 
-                presenter.AddNewAuthor(textBoxAuthorName.Text);
+
+                presenter.AddNewAuthor(textBoxAuthorName.Text, textBoxAuthorId.Text);
+                textBoxAuthorId.Text = (Convert.ToInt32(textBoxAuthorId.Text) + 1).ToString();
                 LoadCheckboxes();
             }
+
         }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            IList<IAuthor> authors = _librarypresenter.GetAuthors();
+            string searchVal = textBoxSearchbar.Text;
+
+            var searchResult = (from item in authors
+                                where item.authorName().ToLower().Contains(searchVal.ToLower())
+                                orderby item.authorName() ascending
+                                select item);
+
+            ClearAuthorsList();
+
+            CheckBox box;
+            foreach (IAuthor iterator in searchResult)
+            {
+                box = new CheckBox();
+                PanelAuthors.Controls.Add(box);
+                box.Tag = iterator;
+                box.Text = iterator.authorName();
+                box.AutoSize = true;
+                checkBoxes.Add(box);
+            }
+        }
+
+        private void textBoxSearchbar_TextChanged(object sender, EventArgs e)
+        {
+            IList<IAuthor> authors = _librarypresenter.GetAuthors();
+            string searchVal = textBoxSearchbar.Text;
+
+            var searchResult = (from item in authors
+                                where item.authorName().ToLower().Contains(searchVal.ToLower())
+                                orderby item.authorName() ascending
+                                select item);
+
+            ClearAuthorsList();
+
+            CheckBox box;
+            foreach (IAuthor iterator in searchResult)
+            {
+
+                box = new CheckBox();
+                PanelAuthors.Controls.Add(box);
+                box.Tag = iterator;
+                box.Text = iterator.authorName();
+                box.AutoSize = true;
+                checkBoxes.Add(box);
+
+            }
+        }
+        public List<IAuthor> GetSelectedAuthors()
+        {
+            List<IAuthor> list = new List<IAuthor>();
+            try
+            {
+                foreach (CheckBox c in PanelAuthors.Controls)
+                {
+                    if (c.Checked)
+                    {
+
+                        IAuthor author = (IAuthor)c.Tag;
+                        list.Add(author);
+                    }
+
+
+                }
+            }
+            catch
+            {
+
+            }
+
+
+            return list;
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+
+            foreach (CheckBox c in PanelAuthors.Controls)
+            {
+                if (c.Checked)
+                {
+
+
+                    _librarypresenter.Container.authors.Remove((IAuthor)c.Tag);
+                    _librarypresenter.Container.Save();
+
+                }
+
+            }
+            ClearAuthorsList();
+            LoadCheckboxes();
+        }
+
     }
 }

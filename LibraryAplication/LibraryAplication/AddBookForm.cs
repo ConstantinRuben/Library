@@ -1,4 +1,5 @@
 ﻿using LibraryAplication.Containers;
+using LibraryAplication.Data;
 using LibraryAplication.Factories;
 using LibraryAplication.Presenters;
 using LibraryAplication.User_Controls;
@@ -17,139 +18,114 @@ namespace LibraryAplication
 {
     public partial class AddBookForm : Form
     {
-        IBookFactory bookfactory = new BookFactory();
-        IAuthorFactory authorfactory = new AuthorFactory();
-        LibraryContainer library = new LibraryContainer();
 
-        AddBookPresenter addBookPresenter = new AddBookPresenter();
+        ILibraryPresenter libraryPresenter;
+        AuthorsList authorList;
+        CategoriesList categoriesListControler;
+        AddBookPresenter addBookPresenter;
+        IList<IAuthor> authors = new List<IAuthor>();
 
-        public AddBookForm()
+        public AddBookForm(ILibraryPresenter presenter)
         {
+            libraryPresenter = presenter;
             InitializeComponent();
-            library.initialize();
-          
 
+            Initialize();
+
+        }
+
+        private void Initialize()
+        {
+            addBookPresenter = new AddBookPresenter(libraryPresenter);
+            addBookPresenter.CompleteAuthorList(comboBoxAuthors);
+            addBookPresenter.CompleteCategoriesList(comboBoxCategiries);
+            authorList = new AuthorsList(libraryPresenter);
+            categoriesListControler = new CategoriesList(libraryPresenter);
+            AuthorListPresenter AuthorPresenter = new AuthorListPresenter(libraryPresenter, authorList);
+            panelAuthorControl.Controls.Add(authorList);
+            panelCategoryControler.Controls.Add(categoriesListControler);
+
+
+
+            textBoxSelectedAuthors.AutoSize = true;
         }
 
         private void AddBookForm_Load(object sender, EventArgs e)
         {
-            library.initialize();
-            comboBox1.AutoCompleteMode.ToString();
-            CompleteAuthorList();
-            
+   
         }
 
         private void btn_AddBook_Click(object sender, EventArgs e)
         {
 
-            Author a = new Author("Author Test1");
-            
-            IList<IAuthor> authors = new List<IAuthor>();
-            authors.Add(a);
-
             IList<string> categories = new List<string>();
-            categories = categoriesList1.GetSelectedCategory();
-
-            IBook book = bookfactory.create(textBox_ISBN.Text, textBox_BookTitle.Text, Convert.ToInt32(textBox_Copies.Text), textBox_Publisher.Text,dateTimePicker1.Value, authors, categories);
-           
-            Image image = pictureBoxCover.Image;
-            BookCover cover = new BookCover(image, textBox_ISBN.Text);
-            book.addCover(cover);
-            library.books.add(book);
-
-            //Add image to resources
-
-            //try
-            //{
-            //   string picturePath = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
-            //    File.Copy(openFileDialogBookCover.FileName, picturePath + "\\Resources\\CoverImages\\" + textBox_ISBN.Text + ".jpg",true);
-            //    //BookCover cover = new BookCover(new Bitmap(Image.FromFile(openFileDialogBookCover.FileName)), textBox_ISBN.Text);
-            //}
-            //catch
-            //{
-          
-            //}
-
-
-
-
-            MessageBox.Show("Done");
-
-            
-
-
-
-
-        }
-        private void CompleteAuthorList()
-        {
-            List<string>list=new List<string>();
-            foreach (var item in library.authors.get())
+            try
             {
-                list.Add(item.authorName());
+                categories.Add(comboBoxCategiries.Text);
+                if (authors == null || authors.Count <=0)
+                {
+                    IAuthor author = (IAuthor)comboBoxAuthors.SelectedItem;
+                    authors.Add(author);
+                }
+                if (authors.Count < 0)
+                {
+                    MessageBox.Show("Complete alld fields");
+                }
+                else if(pictureBoxISBN.Visible==true||pictureBoxBookTitle.Visible==true||pictureBoxCopies.Visible==true)
+                {
+                    MessageBox.Show("Complete all fields");
+                }
+                else
+                {
+                addBookPresenter.AddBook(textBox_ISBN.Text, textBox_BookTitle.Text, textBox_Copies.Text, textBox_Publisher.Text, dateTimePicker1.Value, authors, categories);
+                addBookPresenter.AddCover(pictureBoxCover.Image, textBox_ISBN.Text);
+                }
+
+            }
+            catch
+            {
+
             }
 
-            comboBoxAuthors.DataSource = list;
-            
-            comboBoxAuthors.AutoCompleteMode.ToString();
-           
+
+
         }
 
-        private void btnDisplay_Click(object sender, EventArgs e)
-        {
-            DataTable dt = new DataTable();
-            var bookslist = library.books.get();
-           
 
-            dt.Columns.Add("ISBN");
-            dt.Columns.Add("BookTitle");
-            dt.Columns.Add("NumberOFCopies");
-            dt.Columns.Add("Image", typeof(Image));
-            dt.Columns.Add("Author");
-            //dt.Columns.Add("Publisher");
-            //dt.Columns.Add("RelaseDate");
-            foreach (var item in bookslist)
-            {
-                var row = dt.NewRow();
-
-                row["ISBN"] = item.ISBN1;
-                row["BookTitle"] = Convert.ToString(item.BookTitle);
-                row["NumberOFCopies"] = item.NumberOfCopies.ToString();
-                row["Image"] = item.DisplayCover();
-                row["Author"] = item.Authors.First<IAuthor>().authorName();
-
-                dt.Rows.Add(row);
-            }
-
-            dataGridView1.DataSource = dt;
-        }
-
-        private void btnAddAuthors_Click(object sender, EventArgs e)
+        private void btnAuthorPanel_Click(object sender, EventArgs e)
         {
 
-            if (authorsList1.Visible)
+            if (panelAuthorControl.Visible)
             {
-                authorsList1.Visible = false;
+                panelAuthorControl.Visible = false;
+                btnAuthorLoad.Visible = false;
+
             }
             else
             {
-                authorsList1.Visible = true;
+                panelAuthorControl.Visible = true;
+                btnAuthorLoad.Visible = true;
+                panelCategoryControler.Visible = false;
+                btnCategoryLoad.Visible = false;
             }
         }
 
-        private void btnAddCategories_Click(object sender, EventArgs e)
+        private void btnCategoryPanel_Click(object sender, EventArgs e)
         {
 
-            if (categoriesList1.Visible)
+            if (panelCategoryControler.Visible)
             {
-                categoriesList1.Visible = false;
+                panelCategoryControler.Visible = false;
                 btnCategoryLoad.Visible = false;
 
+
             }
             else
             {
-                categoriesList1.Visible = true;
+                panelCategoryControler.Visible = true;
                 btnCategoryLoad.Visible = true;
+                panelAuthorControl.Visible = false;
+                btnAuthorLoad.Visible = false;
                 btnCategoryLoad.BringToFront();
             }
         }
@@ -158,13 +134,13 @@ namespace LibraryAplication
 
         private void buttonCategoryLoad_Click(object sender, EventArgs e)
         {
-            textBoxAddCategories.Text = "";
-            foreach (string category in categoriesList1.GetSelectedCategory())
+            comboBoxCategiries.Text = "";
+            foreach (string category in categoriesListControler.GetSelectedCategory())
             {
-                if (categoriesList1.GetSelectedCategory().IndexOf(category) == categoriesList1.GetSelectedCategory().Count - 1)
-                    textBoxAddCategories.Text += category;
+                if (categoriesListControler.GetSelectedCategory().IndexOf(category) == categoriesListControler.GetSelectedCategory().Count - 1)
+                    comboBoxCategiries.Text += category;
                 else
-                    textBoxAddCategories.Text += category + ", ";
+                    comboBoxCategiries.Text += category + ", ";
 
 
             }
@@ -175,12 +151,78 @@ namespace LibraryAplication
         {
             if (openFileDialogBookCover.ShowDialog() == DialogResult.OK)
             {
-                pictureBoxCover.Image = Image.FromFile(openFileDialogBookCover.FileName);
-
+                try
+                {
+                    pictureBoxCover.Image = Image.FromFile(openFileDialogBookCover.FileName);
+                }
+                catch
+                {
+                }
             }
-           
+
         }
 
-       
+        private void textBox_ISBN_TextChanged(object sender, EventArgs e)
+        {
+            addBookPresenter.CheckISBN(textBox_ISBN, pictureBoxISBN);
+        }
+
+        private void textBox_BookTitle_TextChanged(object sender, EventArgs e)
+        {
+            addBookPresenter.CHeckBookTitle(textBox_BookTitle, pictureBoxBookTitle);
+        }
+
+        private void textBox_Copies_TextChanged(object sender, EventArgs e)
+        {
+            addBookPresenter.CheckCopies(textBox_Copies, pictureBoxCopies);
+        }
+
+
+        private void btnAuthorLoad_Click(object sender, EventArgs e)
+        {
+            comboBoxAuthors.Text = "";
+            foreach (IAuthor author in authorList.GetSelectedAuthors())
+            {
+                if (authorList.GetSelectedAuthors().IndexOf(author) == authorList.GetSelectedAuthors().Count - 1)
+                    textBoxSelectedAuthors.Text += author;
+                else
+                    textBoxSelectedAuthors.Text += author + ", ";
+
+                authors.Add(author);
+
+            }
+        }
+
+        private void btnaddAtuhorFromComboBox_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                IAuthor author = (IAuthor)comboBoxAuthors.SelectedItem;
+                authors.Add(author);
+
+                if (textBoxSelectedAuthors.Text == "")
+                {
+                    textBoxSelectedAuthors.Text = author.ToString();
+                }
+                else
+                {
+                    textBoxSelectedAuthors.Text += ", " + author.ToString();
+                }
+
+            }
+            catch
+            {
+                comboBoxAuthors.Text = "";
+            }
+
+
+        }
+
+        private void btnClearSelectedAuthors_Click(object sender, EventArgs e)
+        {
+            authors = new List<IAuthor>();
+            textBoxSelectedAuthors.Text = "";
+        }
     }
 }

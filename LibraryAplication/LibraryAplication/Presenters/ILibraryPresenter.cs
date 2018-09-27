@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LibraryAplication.Containers;
+using LibraryAplication.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,10 +9,11 @@ using System.Windows.Forms;
 
 namespace LibraryAplication.Presenters
 {
-     internal interface ILibraryPresenter
+     public interface ILibraryPresenter
     {
         IList<IBook> GetBooks();
-        void displayAllBooks(FlowLayoutPanel panel);
-
+        IList<IAuthor> GetAuthors();
+        IList<IUser> GetUsers();
+        ILibraryContainer Container { get; set; }
     }
 }

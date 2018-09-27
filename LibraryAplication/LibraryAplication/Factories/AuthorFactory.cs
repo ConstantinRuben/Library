@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryAplication.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,9 @@ namespace LibraryAplication.Factories
     {
         
 
-        public IAuthor create(string authorName)
+        public IAuthor Create(string authorName,int id)
         {
-            IAuthor author = new Author(authorName);
+            IAuthor author = new Author(authorName,id);
             return author;
         }
     }

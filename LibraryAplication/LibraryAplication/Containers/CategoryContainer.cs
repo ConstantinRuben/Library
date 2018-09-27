@@ -14,6 +14,9 @@ namespace LibraryAplication.Containers
         BinaryFormatter format = new BinaryFormatter();
 
         IList<string> categories = new List<string>();
+
+        public event EventHandler ChategoryContainerChanged;
+
         public CategoryContainer()
         {
                 
@@ -24,21 +27,25 @@ namespace LibraryAplication.Containers
             this.categories = categories;
         }
 
-        public void add(string category)
+        public void Add(string category)
         {
+            
             categories.Add(category);
             SaveForBinary();
+            ChategoryContainerChanged?.Invoke(this,null);
         }
 
         public IList<string> Get()
         {
-           // updateSerialize();
+           // UpdateSerializedData();
             return categories;
         }
 
-        public void remove(string category)
+        public void Remove(string category)
         {
             categories.Remove(category);
+            SaveForBinary();
+            ChategoryContainerChanged?.Invoke(this, null);
         }
 
         public void SaveForBinary()
@@ -49,7 +56,7 @@ namespace LibraryAplication.Containers
 
 
         }
-        public void updateSerialize()
+        public void UpdateSerializedData()
         {
             try
             {

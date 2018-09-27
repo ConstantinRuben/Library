@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryAplication.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace LibraryAplication.Factories
 {
     interface IBookFactory
     {
-        IBook create(string isbn, string bookTitle, int copies, string publisher,DateTime dateTime, IList<IAuthor> authors, IList<string> categories);
+        IBook Create(string isbn, string bookTitle, int copies, string publisher,DateTime dateTime, IList<IAuthor> authors, IList<string> categories);
     }
 }

@@ -6,24 +6,30 @@ using System.Threading.Tasks;
 using LibraryAplication.Containers;
 using LibraryAplication.Factories;
 using LibraryAplication.User_Controls;
+using LibraryAplication.Data;
 
 namespace LibraryAplication.Presenters
 {
     class AuthorListPresenter
     {
-        AuthorsList _authorsList;
-        LibraryContainer container = new LibraryContainer();
-        AuthorFactory factory = new AuthorFactory();
-        public AuthorListPresenter(AuthorsList authorsList)
+        AuthorsList authorsList;
+
+        IAuthorFactory factory = new AuthorFactory();
+         ILibraryPresenter libraryPresenter;
+
+
+        public AuthorListPresenter(ILibraryPresenter libraryPresenter, AuthorsList authorsList)
         {
-            _authorsList = authorsList;
-            container.initialize();
+            this.libraryPresenter = libraryPresenter;
+            this.authorsList = authorsList;
         }
 
-        public void AddNewAuthor(string authorName)
+        public void AddNewAuthor(string authorName,string id)
         {
-            IAuthor author = factory.create(authorName);
-            container.authors.add(author);
+            int number;
+            bool idvalid= int.TryParse(id,out number);
+            IAuthor author = factory.Create(authorName,number);
+            libraryPresenter.Container.authors.Add(author);
 
         }
     }

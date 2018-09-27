@@ -6,40 +6,49 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using LibraryAplication.Containers;
 using LibraryAplication.User_Controls;
+using LibraryAplication.Data;
 
 namespace LibraryAplication.Presenters
 {
    class LibraryPresenter:ILibraryPresenter
     {
-        LibraryContainer container = new LibraryContainer();
-        HomeForm home;
-        public LibraryPresenter()
+        ILibraryContainer container;
+
+        public ILibraryContainer Container
         {
-            container.initialize();
+            get
+            {
+                return container;
+            }
+
+            set
+            {
+                container = value;
+            }
         }
 
-        public LibraryPresenter(HomeForm home)
+
+        public LibraryPresenter()
         {
-            this.home = home;
-            container.initialize();
+            container = new LibraryContainer();
+            container.Initialize();
         }
 
         public IList<IBook> GetBooks()
         {
-            return container.books.get();
+            return container.books.Get();
         }
 
-
-        public void displayAllBooks(FlowLayoutPanel panel)
+        public IList<IAuthor> GetAuthors()
         {
-
-            foreach (var item in container.books.get())
-            {
-                
-                BookUserControler bookcontroler = new BookUserControler();
-                bookcontroler.Book = item;
-                panel.Controls.Add(bookcontroler);
-            }
+            return container.authors.Get();
         }
+
+        public IList<IUser> GetUsers()
+        {
+            return container.users.Get();
+        }
+
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryAplication.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace LibraryAplication.Containers
 {
-    interface IAuthorContainer
+    public interface IAuthorContainer
     {
-        void add(IAuthor author);
-        void removeAuthor(IAuthor author);
-        IList<IAuthor> get();
-        void updateSerialize();
+        void Add(IAuthor author);
+        void Remove(IAuthor author);
+        IList<IAuthor> Get();
+        void UpdateSerializedData();
+        void SaveForBinary();
+        event EventHandler AuthorContainerChanged;
     }
 }

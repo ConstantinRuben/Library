@@ -6,10 +6,15 @@ using System.Threading.Tasks;
 
 namespace LibraryAplication.Containers
 {
-    interface ILibraryContainer
+    public interface ILibraryContainer
     {
         IAuthorContainer authors { get; set; }
-        IBookContainer Books { get; set; }
-        ICategoryContainer Categories { get; set; }
+        IBookContainer books { get; set; }
+        ICategoryContainer categories { get; set; }
+        IUserContainer users { get; set; }
+        IBorrowedContainer borrowed { get; set; }
+        ISettingsContainer settings { get; set; }
+        void Initialize();
+        void Save();
     }
 }

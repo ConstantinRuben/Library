@@ -18,7 +18,6 @@ namespace LibraryAplication
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             HomeForm home = new HomeForm();
-          //  ILibraryPresenter presenter = new LibraryPresenter(home);
             Application.Run(home);
             
         }

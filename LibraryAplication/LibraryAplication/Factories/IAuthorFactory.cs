@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryAplication.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace LibraryAplication.Factories
 {
     interface IAuthorFactory
     {
-        IAuthor create(string authorName);
+        IAuthor Create(string authorName, int id);
     }
 }

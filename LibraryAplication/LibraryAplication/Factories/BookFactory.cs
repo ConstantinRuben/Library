@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryAplication.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace LibraryAplication.Factories
     {
 
 
-        public IBook create(string isbn, string bookTitle, int copies, string publisher,DateTime dateTime, IList<IAuthor> authors, IList<string> categories)
+        public IBook Create(string isbn, string bookTitle, int copies, string publisher,DateTime dateTime, IList<IAuthor> authors, IList<string> categories)
         {
             IBook book = new Book(isbn, bookTitle, copies, publisher,dateTime,categories);
 

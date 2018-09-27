@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace LibraryAplication.Containers
 {
-    interface ICategoryContainer
+    public interface ICategoryContainer
     {
-        void add(string category);
-        void remove(string category);
+        void Add(string category);
+        void Remove(string category);
         IList<string> Get();
-        void updateSerialize();
+        void UpdateSerializedData();
+        void SaveForBinary();
+        event EventHandler ChategoryContainerChanged;
     }
 }

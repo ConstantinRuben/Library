@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryAplication.Data;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,7 +16,8 @@ namespace LibraryAplication.Containers
     {
         IList<IBook> booksList;
 
-       
+        public event EventHandler BookContainerChanged;
+
         BinaryFormatter format = new BinaryFormatter();
         public BookContainer()
         {
@@ -29,23 +31,30 @@ namespace LibraryAplication.Containers
 
     
 
-        public void add(IBook book)
+        public void Add(IBook book)
         {
             booksList.Add(book);
             SaveForBinary();
+            BookContainerChanged?.Invoke(this,null);
         }
 
-        public IList<IBook> get()
+        public IList<IBook> Get()
         {
-            updateSerialize();
+           // UpdateSerializedData();
             return booksList;
         }
 
      
 
-        public void remove(IBook book)
+        public void Remove(IBook book)
         {
+            foreach (var item in book.Authors)
+            {
+                item.RemoveBook(book);
+            }
             booksList.Remove(book);
+            SaveForBinary();
+            BookContainerChanged?.Invoke(this, null);
         }
         public void SaveforXML()
         {
@@ -66,7 +75,7 @@ namespace LibraryAplication.Containers
 
 
         }
-        public void updateSerialize()
+        public void UpdateSerializedData()
         {
             try
             {

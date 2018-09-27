@@ -15,57 +15,71 @@ namespace LibraryAplication
 {
     public partial class HomeForm : Form
     {
-        ILibraryPresenter presenter;
+        ILibraryPresenter libraryPresenter;
+        HomePresenter presenter;
 
+      
 
         public HomeForm()
         {
             InitializeComponent();
-            presenter = new LibraryPresenter(this);
-            presenter.displayAllBooks(flowLayoutPanelAllBooks);
+            Initialize();
 
         }
 
        
-
-
-        private void labelAboutUs_Click(object sender, EventArgs e)
+        private void Initialize()
         {
-            AddBookForm ob1 = new AddBookForm();
-            ob1.TopLevel = false;
+            libraryPresenter = new LibraryPresenter();
+            presenter = new HomePresenter(libraryPresenter);
 
-            //  tabPage4.Controls.Add(ob1);
-            ob1.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            ob1.Dock = DockStyle.Fill;
-            paneltab4.Controls.Add(ob1);
-            tabControl1.SelectedTab = tabPage4;
-            ob1.Show();
+            libraryPresenter.Container.books.BookContainerChanged += RefreshAllBooks;
+
+            presenter.displayAllBooks(flowLayoutPanelAllBooks);
+            libraryPresenter.Container.settings.GetSettings().ThemeChanged += LoadTheme;
+            try
+            {
+            LoadTheme(this,null);
+            }
+            catch
+            {
+
+            }
+
+            tabControl1.Appearance = TabAppearance.FlatButtons;
+            tabControl1.ItemSize = new Size(0, 1);
+            tabControl1.SizeMode = TabSizeMode.Fixed;
+            presenter.loadNotification(label_Notification);
+
+            setUserTabPage();
+            InitializeMostReadBooks();
+            
+
+
 
         }
 
-        private void labelBrowse_MouseHover(object sender, EventArgs e)
+        private void InitializeMostReadBooks()
         {
-            panelBrowse.Visible = true;
+            presenter.GetMostReadBooks(flowLayoutPanelMostRead);
         }
 
-        private void labelBrowse_MouseLeave(object sender, EventArgs e)
+        private void setUserTabPage()
         {
-            panelBrowse.Visible = false;
-        }
 
-        private void labelAddBooks_MouseHover(object sender, EventArgs e)
-        {
-            panelAddBooks.Visible = true;
-        }
+            UserForm userform = new UserForm(libraryPresenter);
+            userform.FormBorderStyle = FormBorderStyle.None;
+            userform.Dock = DockStyle.Fill;
+            userform.Show();
+            userform.TopLevel = false;
+            panelUserTapPage.Controls.Add(userform);
+          
 
-        private void labelAddBooks_MouseLeave(object sender, EventArgs e)
-        {
-            panelAddBooks.Visible = false;
         }
 
         private void labelAddBooks_Click(object sender, EventArgs e)
         {
-            AddBookForm ob = new AddBookForm();
+            AddBookForm ob = new AddBookForm(libraryPresenter);
             ob.Show();
 
         }
@@ -88,6 +102,77 @@ namespace LibraryAplication
 
         }
 
-      
+        private void labelBrowse_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageBrowse;
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            //presenter.SearchForMainForm(flowLayoutPanelTabPage2, textBoxSearchBar.Text);
+            //tabControl1.SelectedTab = tabPageSearchResul;
+            //textBoxSearchBar.Select();
+            presenter.OpenAdvancedSearch();
+
+        }
+
+        private void textBoxSearchBar_TextChanged(object sender, EventArgs e)
+        {
+            presenter.SearchForMainForm(flowLayoutPanelTabPage2, textBoxSearchBar.Text);
+            tabControl1.SelectedTab = tabPageSearchResul;
+            textBoxSearchBar.Select();
+           
+        }
+
+        private void labelUsers_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageUsers;
+        }
+
+        private void labelCategories_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPageTemporaryTest;
+            Label label = sender as Label;
+            presenter.SearchCategory(flowLayoutPanelCategory, label.Text);
+        }
+
+        private void btnRezervation_Click(object sender, EventArgs e)
+        {
+            presenter.OpenRezervationForm();
+        }
+        public void RefreshAllBooks(object sender, EventArgs e)
+        {
+            presenter.displayAllBooks(flowLayoutPanelAllBooks);
+        }
+        private void btnRecords_Click(object sender, EventArgs e)
+        {
+            presenter.OpenRecordsForm();
+        }
+
+        private void label_MostReadLoadMore_Click(object sender, EventArgs e)
+        {
+            presenter.GetMostReadBooks(flowLayoutPanelMostRead);
+        }
+
+        private void Settings_Click(object sender, EventArgs e)
+        {
+            presenter.OpenSettingsForm();
+        }
+        private void LoadTheme(object sender, EventArgs e)
+        {
+            Color Theme = libraryPresenter.Container.settings.GetSettings().Theme;
+            panelCategories.BackColor = Theme;
+            panelRight1.BackColor = Theme;
+            panelRight2.BackColor = Theme;
+            panelRight3.BackColor = Theme;
+            panelRight4.BackColor = Theme;
+
+        }
+
+        private void label_Notification_Click(object sender, EventArgs e)
+        {
+            presenter.OpenRecordsForm();
+            label_Notification.Visible = false;
+        }
     }
 }
